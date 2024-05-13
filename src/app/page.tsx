@@ -1,9 +1,15 @@
-import { Form } from "@/components/form";
+import Body from "./ui/body";
+import Footer from "./ui/footer";
+import Header from "./ui/header";
 
-export default function Home() {
+const HomePage = () => {
   return (
-    <main className="flex min-h-screen items-center justify-center p-24">
-      <Form />
-    </main>
+    <>
+      <Header />
+      <Body />
+      <Footer />
+    </>
   );
-}
+};
+
+export default HomePage;
