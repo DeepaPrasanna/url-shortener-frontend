@@ -29,7 +29,7 @@ export const config = {
   // callbacks: {
   //   authorized({ request, auth }) {
   //     const { pathname } = request.nextUrl;
-  //     if (pathname === "/middleware-example") return !!auth;
+  //     if (pathname === "/dashboard") return !!auth;
   //     return true;
   //   },
   //   // jwt({ token, trigger, session }) {
@@ -37,7 +37,6 @@ export const config = {
   //   //   return token;
   //   // },
   // },
-  
 } satisfies NextAuthConfig;
 
 export const { handlers, auth, signIn, signOut } = NextAuth(config);
