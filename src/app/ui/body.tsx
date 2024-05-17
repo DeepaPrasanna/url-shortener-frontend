@@ -47,10 +47,10 @@ const features = [
 const Body = () => {
   return (
     <>
-      <div className="hero py-10 md:py-12 grid sm:grid-cols-2 md:grid-cols-2  gap-14 md:gap-20 lg:gap-44">
+      <div className="hero py-10 md:py-12 grid sm:grid-cols-2 md:grid-cols-2  gap-14 md:gap-20 lg:gap-35">
         <section className="sm:mx-auto grid min-h-[calc(100vh-300px)] max-w-5xl flex-col  sm:items-center sm:justify-center gap-4 text-center">
           <div className="p-4">
-            <h1 className="text-balance bg-gradient-to-tr  from-black/70 via-black to-black/60 bg-clip-text text-center text-3xl font-bold text-transparent dark:from-zinc-400/10 dark:via-white/90 dark:to-white/20 sm:text-5xl md:text-4xl lg:text-6xl">
+            <h1 className="text-balance bg-gradient-to-tr bg-clip-text text-center text-3xl font-bold text-transparent from-zinc-400/10 via-white/90 to-white/20 sm:text-5xl md:text-4xl lg:text-6xl">
               Instant Links, Infinite Reach! 🌱
             </h1>
             <p className="text-balance mb-10 mt-4 text-center text-muted-foreground text-sm  lg:text-xl">
@@ -74,7 +74,7 @@ const Body = () => {
         <Form />
       </div>
       <section id="features">
-        <div className="container mx-auto lg:max-w-screen-lg mt-60 mb-40">
+        <div className="container mx-auto lg:max-w-screen-lg mt-56 mb-40">
           <h1 className="mb-4 text-center text-3xl font-bold md:text-4xl lg:text-5xl">
             <a id="features"></a> Features
           </h1>
@@ -84,7 +84,10 @@ const Body = () => {
           </p>
           <div className="grid gap-8 sm:grid-cols-2 md:grid-cols-2">
             {features.map((feature, i) => (
-              <div className="bg-card text-card-foreground relative overflow-hidden rounded-xl border border-gray-800  bg-gradient-to-r from-black to-neutral-950 shadow-2xl hover:scale-105 hover:border-black hover:shadow-lg">
+              <div
+                className="bg-card text-card-foreground relative overflow-hidden rounded-xl border border-gray-800  bg-gradient-to-r from-black to-neutral-950 shadow-2xl hover:scale-105 hover:border-black hover:shadow-lg"
+                key={i}
+              >
                 <div className="pb-6 flex flex-col space-y-1.5 p-6">
                   <div className="flex flex-row pb-6">
                     <div className="pr-4 text-2xl">{feature.logo}</div>
