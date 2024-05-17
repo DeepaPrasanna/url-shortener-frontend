@@ -1,3 +1,5 @@
-const page = () => {
-    <p>hello on dashboard</p>
-}
+const Page = () => {
+  <p>hello on dashboard</p>;
+};
+
+export default Page;
