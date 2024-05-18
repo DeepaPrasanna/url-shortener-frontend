@@ -8,7 +8,7 @@ export async function login() {
   const { data, error } = await supabase.auth.signInWithOAuth({
     provider: "google",
     options: {
-      redirectTo: "http://localhost:3000/auth/callback",
+      redirectTo: `${process.env.AUTH_URL}/auth/callback`,
     },
   });
 
@@ -21,5 +21,4 @@ export async function logout() {
   const supabase = createClient();
 
   const { error } = await supabase.auth.signOut();
-
 }
