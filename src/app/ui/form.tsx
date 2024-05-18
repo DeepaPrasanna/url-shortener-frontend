@@ -2,7 +2,6 @@
 
 import { useFormStatus, useFormState } from "react-dom";
 import "react-datepicker/dist/react-datepicker.css";
-import { useRouter } from "next/navigation";
 import DatePicker from "react-datepicker";
 import { QRCodeSVG } from "qrcode.react";
 import { useState } from "react";
@@ -68,7 +67,6 @@ export function Form() {
     message: "",
     timestamp: Date.now(),
   });
-  const router = useRouter();
 
   return (
     <div
@@ -122,7 +120,7 @@ export function Form() {
         </div>
         <div className="flex justify-center items-center">
           <QRCodeSVG
-            value="https://reactjs.org/"
+            value={`teenyurl.in/${formState.result.split("/")[1]}`}
             includeMargin
             width="30%"
             height="30%"
