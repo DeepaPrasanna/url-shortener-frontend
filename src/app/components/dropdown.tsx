@@ -14,7 +14,7 @@ const Dropdown = () => {
   return (
     <div className="relative inline-block text-left">
       <button
-        className="focus:outline-none focus:ring-1 md:hidden h-9 w-9 border border-input bg-transparent shadow-sm hover:bg-accent hover:text-accent-foreground"
+        className="focus:outline-none focus:ring-1 md:hidden h-9 w-9  bg-transparent shadow-sm hover:bg-accent hover:text-accent-foreground"
         id="dropdownDefaultButton"
         type="button"
         onClick={toggleDropdown}

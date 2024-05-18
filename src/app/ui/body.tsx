@@ -48,7 +48,7 @@ const Body = () => {
   return (
     <>
       <div className="hero py-10 md:py-12 grid sm:grid-cols-2 md:grid-cols-2  gap-4 md:gap-20 lg:gap-35">
-        <section className="sm:mx-auto grid min-h-[calc(100vh-300px)] max-w-5xl flex-col  sm:items-center sm:justify-center gap-4 text-center">
+        <section className="sm:mx-auto grid md:min-h-[calc(100vh-300px)] max-w-5xl flex-col  sm:items-center sm:justify-center text-center">
           <div className="p-4">
             <h1 className="text-balance bg-gradient-to-tr bg-clip-text text-center text-3xl font-bold text-transparent from-zinc-400/10 via-white/90 to-white/20 sm:text-5xl md:text-4xl lg:text-6xl">
               Instant Links, Infinite Reach! 🌱
