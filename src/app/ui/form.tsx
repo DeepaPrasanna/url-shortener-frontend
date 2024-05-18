@@ -48,6 +48,7 @@ const FormChild = ({ formState }: { formState: FormState }) => {
         onChange={(date) => setStartDate(date as Date)}
         placeholderText="Expiry (optional)"
         withPortal
+        name="ttl"
       />
 
       <button
