@@ -8,9 +8,11 @@ export async function login() {
   const { data, error } = await supabase.auth.signInWithOAuth({
     provider: "google",
     options: {
-      redirectTo: `${process.env.AUTH_URL}/auth/callback`,
+      redirectTo: "https://teenyurl.in/auth/callback",
     },
   });
+
+  console.log({ data });
 
   if (data.url) {
     redirect(data.url); // use the redirect API for your server framework
