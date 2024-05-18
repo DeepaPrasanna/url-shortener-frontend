@@ -4,9 +4,9 @@ import { logout } from "../actions/auth";
 import Dropdown from "../components/dropdown";
 import { createClient } from "../utils/supabase/server";
 
-const supabase = createClient();
-
 const Header = async () => {
+  const supabase = createClient();
+
   const { data, error } = await supabase.auth.getUser();
 
   return (
