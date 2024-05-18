@@ -9,10 +9,9 @@ const Header = async () => {
 
   const { data, error } = await supabase.auth.getUser();
 
-
   return (
     <header className="py-4 lg:py-6 ">
-      <div className=" flex items-center justify-between mx-auto">
+      <div className="p-1 flex items-center justify-between mx-auto">
         <div className="flex items-center gap-2">
           <Dropdown />
           <Link className="text-xl font-medium" href="/">
