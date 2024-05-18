@@ -52,7 +52,7 @@ export const shortenUrl = async (formState: FormState, formData: FormData) => {
         ? responseBody.message
         : res.status === 400
         ? responseBody.errors[0].msg
-        : responseBody.message,
+        : responseBody?.message,
     result: responseBody.result,
     timestamp: Date.now(),
   };
