@@ -1,13 +1,11 @@
 "use server";
 
 import { redirect } from "next/navigation";
+
 import { createClient } from "../utils/supabase/server";
 
 export async function login() {
   const supabase = createClient();
-
-  console.log("NEXT_PUBLIC_SITE_URL", process?.env?.NEXT_PUBLIC_SITE_URL);
-  console.log("NEXT_PUBLIC_VERCEL_URL", process?.env?.NEXT_PUBLIC_VERCEL_URL);
 
   const getURL = () => {
     let url =
@@ -27,8 +25,6 @@ export async function login() {
       redirectTo: `${getURL()}/auth/callback`,
     },
   });
-
-  console.log({ data });
 
   if (data.url) {
     redirect(data.url); // use the redirect API for your server framework

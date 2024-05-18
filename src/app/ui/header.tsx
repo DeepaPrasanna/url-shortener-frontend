@@ -9,7 +9,6 @@ const Header = async () => {
 
   const { data, error } = await supabase.auth.getUser();
 
-  console.log("header:", { data, error });
 
   return (
     <header className="py-4 lg:py-6 ">

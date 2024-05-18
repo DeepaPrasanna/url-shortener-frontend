@@ -3,7 +3,6 @@ import { NextResponse } from "next/server";
 import { type CookieOptions, createServerClient } from "@supabase/ssr";
 
 export async function GET(request: Request) {
-  console.log(request);
   const { searchParams, origin } = new URL(request.url);
   const code = searchParams.get("code");
   // if "next" is in param, use it as the redirect URL
@@ -29,7 +28,6 @@ export async function GET(request: Request) {
       }
     );
     const { error } = await supabase.auth.exchangeCodeForSession(code);
-    console.log(origin);
     if (!error) {
       return NextResponse.redirect(`${origin}${next}`);
     }
