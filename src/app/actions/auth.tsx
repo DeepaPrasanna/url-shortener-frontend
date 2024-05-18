@@ -5,6 +5,10 @@ import { createClient } from "../utils/supabase/server";
 
 export async function login() {
   const supabase = createClient();
+
+  console.log("NEXT_PUBLIC_SITE_URL", process?.env?.NEXT_PUBLIC_SITE_URL);
+  console.log("NEXT_PUBLIC_VERCEL_URL", process?.env?.NEXT_PUBLIC_VERCEL_URL);
+
   const getURL = () => {
     let url =
       process?.env?.NEXT_PUBLIC_SITE_URL ?? // Set this to your site URL in production env.
