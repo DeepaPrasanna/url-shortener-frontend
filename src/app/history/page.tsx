@@ -24,7 +24,7 @@ export default async function History() {
   const allMyUrls = await getData(data.user.email as string);
 
   return (
-    <div className="flex flex-col justify-center items-center space-y-2">
+    <div className="h-screen flex flex-col justify-center items-center space-y-2 mb-14">
       {allMyUrls.length ? (
         allMyUrls.map((info: any) => (
           <div
@@ -37,7 +37,7 @@ export default async function History() {
                 {info.longUrl}
               </div>
 
-              <div className="flex flex-row text-xs text-muted-foreground justify-between">
+              <div className="flex flex-row text-xs text-muted-foreground justify-between pb-2">
                 <div className="">
                   Created on: {new Date(info.createdOn).toLocaleDateString()}
                 </div>
@@ -52,10 +52,12 @@ export default async function History() {
           </div>
         ))
       ) : (
-        <div>
+        <div className="p-2">
           <p>
-            So squeaky clean here! Try shortening some URLs{" "}
-            <Link href="/">here</Link>{" "}
+            So squeaky clean! Try shortening some URLs{" "}
+            <Link href="/">
+              <span className="underline underline-offset-2">here</span>
+            </Link>{" "}
           </p>
         </div>
       )}
