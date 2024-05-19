@@ -20,11 +20,11 @@ const Header = async () => {
         </div>
         <nav className="hidden gap-4 sm:gap-6 md:flex ml-10">
           <Link
-            href="/dashboard"
-            key="dashboard"
+            href="/history"
+            key="history"
             className="text-sm font-medium text-muted-foreground/70 transition-colors hover:text-muted-foreground"
           >
-            Dashboard
+            History
           </Link>
         </nav>
         <div className="ml-auto">

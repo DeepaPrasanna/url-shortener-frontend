@@ -27,8 +27,11 @@ const Dropdown = () => {
           className="absolute left-0 mt-2 z-50 min-w-[8rem] overflow-hidden rounded-md border bg-popover p-1 text-popover-foreground shadow-md"
         >
           <ul className="py-1" aria-labelledby="dropdownDefaultButton">
-            <li className="relative flex cursor-default select-none items-center rounded-sm px-2 py-1.5 text-sm outline-none transition-colors focus:bg-accent focus:text-accent-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50">
-              <Link href="/dashboard">Dashboard</Link>
+            <li
+              className="relative flex cursor-default select-none items-center rounded-sm px-2 py-1.5 text-sm outline-none transition-colors focus:bg-accent focus:text-accent-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50"
+              onClick={toggleDropdown}
+            >
+              <Link href="/history">History</Link>
             </li>
           </ul>
         </div>

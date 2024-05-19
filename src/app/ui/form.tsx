@@ -118,13 +118,23 @@ export function Form() {
             See In Action
           </button>
         </div>
-        <div className="flex justify-center items-center">
-          <QRCodeSVG
-            value={`teenyurl.in/${formState.result.split("/")[1]}`}
-            includeMargin
-            width="30%"
-            height="30%"
-          />
+        {formState?.message === "success" && (
+          <div className="flex justify-center items-center">
+            <QRCodeSVG
+              value={`teenyurl.in/${formState.result.split("/")[1]}`}
+              includeMargin
+              width="30%"
+              height="30%"
+            />
+          </div>
+        )}
+        <div>
+          <button
+            onClick={() => window.location.reload()}
+            className="inline-flex items-center justify-center whitespace-nowrap text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 border border-input bg-transparent shadow-sm hover:bg-accent hover:text-accent-foreground h-10 rounded-md px-8"
+          >
+            Retry
+          </button>
         </div>
       </div>
     </div>
