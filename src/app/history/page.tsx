@@ -1,13 +1,14 @@
 import { redirect } from "next/navigation";
 import Link from "next/link";
 
-
 import { createClient } from "../utils/supabase/server";
 import Card from "../components/card";
 
 async function getData(email: string) {
-  const res = await fetch(`https://api.teenyurl.in/history?email=${email}`);
-  console.log(res)
+  const res = await fetch(
+    `http://teenyurl.ap-south-1.elasticbeanstalk.com/history?email=${email}`
+  );
+  console.log(res);
   if (!res.ok) {
     throw new Error("Failed to fetch data");
   }
@@ -29,11 +30,7 @@ export default async function History() {
     <div className="h-screen flex flex-col justify-center items-center space-y-2 mb-14">
       {allMyUrls.length ? (
         allMyUrls.map((info: any) => (
-          <Card
-            classes="  w-80 md:w-1/2"
-            hoverEffect
-            key={info._id}
-          >
+          <Card classes="  w-80 md:w-1/2" hoverEffect key={info._id}>
             <div className="flex flex-col space-y-4 p-3">
               <div className="text-lg font-bold">teenyurl.in/{info.code}</div>
               <div className="text-muted-foreground text-xs">

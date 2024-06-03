@@ -1,7 +1,7 @@
 import { redirect } from "next/navigation";
 
 async function getData(slug: string) {
-  const res = await fetch(`https://api.teenyurl.in/${slug}`);
+  const res = await fetch(`http://teenyurl.ap-south-1.elasticbeanstalk.com/${slug}`);
 
   console.log(res)
   if (!res.ok) {

@@ -35,7 +35,7 @@ export const shortenUrl = async (formState: FormState, formData: FormData) => {
   }
   if (email) body = { ...body, email };
 
-  const res = await fetch("https://api.teenyurl.in/api/", {
+  const res = await fetch("http://teenyurl.ap-south-1.elasticbeanstalk.com/api/", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
