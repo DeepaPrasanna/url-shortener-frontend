@@ -8,8 +8,12 @@ import { useState } from "react";
 
 import { FormState, shortenUrl } from "@/app/actions/shortenUrl";
 
+import Card from "../components/card";
+import Button from "../components/button";
+import { FaCheck, FaRegCopy } from "react-icons/fa";
+
 const FormChild = ({ formState }: { formState: FormState }) => {
-  const [startDate, setStartDate] = useState(new Date());
+  const [startDate, setStartDate] = useState<Date | null>(null);
 
   const data = useFormStatus();
 
@@ -44,18 +48,18 @@ const FormChild = ({ formState }: { formState: FormState }) => {
         className="w-full h-12 rounded-md border border-input bg-transparent px-3 py-1 text-sm shadow-sm transition-colors file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50"
         selected={startDate}
         isClearable
-        onChange={(date) => setStartDate(date as Date)}
-        placeholderText="Expiry (optional)"
+        onChange={(date) => setStartDate(date)}
+        placeholderText="DD/MM/YYYY"
         withPortal
         name="ttl"
       />
 
-      <button
-        className="inline-flex w-full items-center justify-center whitespace-nowrap rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 bg-primary text-primary-foreground shadow hover:bg-primary/90 h-10"
+      <Button
+        classes="shadow w-full h-10"
         disabled={data.pending}
-      >
-        Submit
-      </button>
+        primary
+        text="Submit"
+      />
     </>
   );
 };
@@ -68,11 +72,18 @@ export function Form() {
     timestamp: Date.now(),
   });
 
+  const [copied, setCopied] = useState(false);
+
+  const handleCopyToClipboard = () => {
+    const shortUrl = `teenyurl.in/${formState.result.split("/")[1]}`;
+    navigator.clipboard.writeText(shortUrl).then(() => {
+      setCopied(true);
+      setTimeout(() => setCopied(false), 2000);
+    });
+  };
+
   return (
-    <div
-      className="md:w-5/6
-     bg-card text-card-foreground relative overflow-hidden rounded-xl border border-gray-800  bg-gradient-to-r from-black to-neutral-950 shadow-2xl mx-auto 2xl:h-2/3"
-    >
+    <Card classes="md:w-5/6 mx-auto 2xl:my-auto ">
       <form
         action={action}
         className={`space-y-4 m-6  ${
@@ -82,42 +93,45 @@ export function Form() {
         <FormChild formState={formState} />
       </form>
       <div
-        className={` m-4 space-y-2 ${
-          formState.message === "success" ? "block" : "hidden"
+        className={`m-4 space-y-2 ${
+          formState.message === "success" ? "flex flex-col gap-2" : "hidden"
         }`}
       >
-        <p className="text-sm lg:text-lg font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70">
-          Long URL :
-        </p>
-        <input
-          readOnly
-          value={formState.originalUrl as string}
-          className="bg-secondary text-muted-foreground w-full flex h-9 rounded-md border border-input  px-3 py-1 text-sm shadow-sm transition-colors file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50"
-        />
-
-        <p className="text-sm lg:text-lg font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70">
-          Short URL :
-        </p>
-
-        <div className={` m-6  flex justify-center gap-3 `}>
+        <div>
+          <p className="text-sm lg:text-lg font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70 py-1">
+            Long URL :
+          </p>
           <input
             readOnly
-            value={
-              formState.message === "success"
-                ? `teenyurl.in/${formState.result.split("/")[1]}`
-                : ""
-            }
-            className="bg-secondary text-muted-foreground flex h-9 rounded-md border border-input  px-3 py-1 text-sm shadow-sm transition-colors file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50 w-3/5"
+            value={formState.originalUrl as string}
+            className="bg-secondary text-muted-foreground w-full flex h-9 rounded-md border border-input  px-3 py-1 text-sm shadow-sm transition-colors file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50"
           />
-          <button
-            className="w-2/5 border rounded border-input bg-transparent shadow-sm hover:bg-accent hover:text-accent-foreground text-xs lg:text-sm"
-            onClick={() => {
-              window.open(`${formState.result.split("/")[1]}`, "_blank");
-            }}
-          >
-            See In Action
-          </button>
         </div>
+
+        <div>
+          <p className="text-sm lg:text-lg font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70 py-1">
+            Short URL :
+          </p>
+
+          <div className="relative">
+            <input
+              readOnly
+              value={
+                formState.message === "success"
+                  ? `teenyurl.in/${formState.result.split("/")[1]}`
+                  : ""
+              }
+              className="bg-secondary text-muted-foreground flex h-9 rounded-md border border-input px-3 py-1 text-sm shadow-sm transition-colors file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50 w-full"
+            />
+            <button
+              onClick={handleCopyToClipboard}
+              className="absolute right-2 top-1/2 transform -translate-y-1/2 bg-secondary text-muted-foreground border border-input px-2 py-1 rounded-md"
+            >
+              {copied ? <FaCheck className="text-green-500" /> : <FaRegCopy />}
+            </button>
+          </div>
+        </div>
+
         {formState?.message === "success" && (
           <div className="flex justify-center items-center">
             <QRCodeSVG
@@ -128,15 +142,23 @@ export function Form() {
             />
           </div>
         )}
-        <div>
-          <button
+        <div className="flex justify-between">
+          <Button
+            classes="border border-input h-10 rounded-md px-4 lg:px-8"
+            onClick={() => {
+              window.open(`${formState.result.split("/")[1]}`, "_blank");
+            }}
+            text="Visit"
+            primary
+          />
+          <Button
             onClick={() => window.location.reload()}
-            className="inline-flex items-center justify-center whitespace-nowrap text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 border border-input bg-transparent shadow-sm hover:bg-accent hover:text-accent-foreground h-10 rounded-md px-8"
-          >
-            Retry
-          </button>
+            classes="border border-input h-10 px-4 lg:px-8"
+            text="Shorten another?"
+            foreground
+          />
         </div>
       </div>
-    </div>
+    </Card>
   );
 }

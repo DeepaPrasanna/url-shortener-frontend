@@ -6,7 +6,7 @@ export type FormState = {
   originalUrl: FormDataEntryValue | null;
   result: string;
   message: string;
-  timestamp?: number;
+  timestamp?: number | null;
 };
 
 export const shortenUrl = async (formState: FormState, formData: FormData) => {

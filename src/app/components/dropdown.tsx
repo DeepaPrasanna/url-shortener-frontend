@@ -3,6 +3,30 @@
 import Link from "next/link";
 import { useState } from "react";
 import { GiHamburgerMenu } from "react-icons/gi";
+import ListItem from "./listItem";
+
+import { useEffect, useRef } from "react";
+
+const useOutsideClick = (callback: () => void) => {
+  const ref = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (ref.current && !ref.current.contains(event.target as Node)) {
+        callback();
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [callback]);
+
+  return ref;
+};
+
 
 const Dropdown = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -11,10 +35,11 @@ const Dropdown = () => {
     setIsOpen(!isOpen);
   };
 
+  const dropdownRef = useOutsideClick(toggleDropdown);
   return (
     <div className="relative inline-block text-left">
       <button
-        className="focus:outline-none focus:ring-1 md:hidden h-9 w-9  bg-transparent shadow-sm hover:bg-accent hover:text-accent-foreground"
+        className="md:hidden h-9 w-9 bg-transparent shadow-sm hover:bg-accent hover:text-accent-foreground flex justify-center items-center"
         id="dropdownDefaultButton"
         type="button"
         onClick={toggleDropdown}
@@ -24,15 +49,26 @@ const Dropdown = () => {
       {isOpen && (
         <div
           id="dropdown"
-          className="absolute left-0 mt-2 z-50 min-w-[8rem] overflow-hidden rounded-md border bg-popover p-1 text-popover-foreground shadow-md"
+          className="absolute right-0 mt-2 z-50 min-w-[8rem] overflow-hidden rounded-md border bg-popover p-1 text-popover-foreground shadow-md"
+          ref={dropdownRef}
         >
           <ul className="py-1" aria-labelledby="dropdownDefaultButton">
-            <li
-              className="relative flex cursor-default select-none items-center rounded-sm px-2 py-1.5 text-sm outline-none transition-colors focus:bg-accent focus:text-accent-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50"
-              onClick={toggleDropdown}
-            >
-              <Link href="/history">History</Link>
-            </li>
+            <ListItem onClick={toggleDropdown}>
+              <Link
+                href="/history"
+                className="hover:bg-accent hover:text-accent-foreground p-2 w-full rounded-md"
+              >
+                History
+              </Link>
+            </ListItem>
+            <ListItem onClick={toggleDropdown}>
+              <Link
+                href="/login"
+                className="hover:bg-accent hover:text-accent-foreground p-2  w-full rounded-md"
+              >
+                Login
+              </Link>
+            </ListItem>
           </ul>
         </div>
       )}

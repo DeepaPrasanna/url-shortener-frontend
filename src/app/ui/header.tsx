@@ -1,6 +1,7 @@
 import Link from "next/link";
 
 import { logout } from "../actions/auth";
+import Button from "../components/button";
 import Dropdown from "../components/dropdown";
 import { createClient } from "../utils/supabase/server";
 
@@ -10,39 +11,34 @@ const Header = async () => {
   const { data, error } = await supabase.auth.getUser();
 
   return (
-    <header className="py-4 lg:py-6 ">
-      <div className="p-1 flex items-center justify-between mx-auto">
-        <div className="flex items-center gap-2">
-          <Dropdown />
-          <Link className="text-xl font-medium" href="/">
-            TeenyURL
-          </Link>
-        </div>
-        <nav className="hidden gap-4 sm:gap-6 md:flex ml-10">
+    <header className="py-1 fixed top-0 left-0 right-0 z-50 shadow-md bg-background">
+      <div className="p-3 flex items-center justify-between mx-auto">
+        <Link className="text-xl font-medium" href="/">
+          TeenyURL
+        </Link>
+        <Dropdown />
+
+        <nav className="hidden gap-4 sm:gap-6  md:flex">
           <Link
             href="/history"
             key="history"
-            className="text-sm font-medium text-muted-foreground/70 transition-colors hover:text-muted-foreground"
+            className="text-sm font-medium text-muted-foreground/70 transition-colors hover:text-muted-foreground py-2"
           >
             History
           </Link>
-        </nav>
-        <div className="ml-auto">
           {data.user ? (
             <form action={logout}>
-              <button className="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 bg-secondary text-secondary-foreground shadow-sm hover:bg-secondary/80 h-9 px-4 py-2">
-                Logout
-              </button>
+              <Button secondary text="Logout" classes="h-9 px-4 py-2" />
             </form>
           ) : (
             <Link
               href="/login"
-              className="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 bg-secondary text-secondary-foreground shadow-sm hover:bg-secondary/80 h-9 px-4 py-2"
+              className="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 bg-secondary text-secondary-foreground shadow-sm hover:bg-secondary/80 h-9 px-4"
             >
               Login
             </Link>
           )}
-        </div>
+        </nav>
       </div>
     </header>
   );
