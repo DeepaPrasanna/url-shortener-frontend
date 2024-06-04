@@ -16,7 +16,7 @@ const Header = async () => {
         <Link className="text-xl font-medium" href="/">
           TeenyURL
         </Link>
-        <Dropdown />
+        <Dropdown user={data.user} logout={logout}/>
 
         <nav className="hidden gap-4 sm:gap-6  md:flex">
           <Link

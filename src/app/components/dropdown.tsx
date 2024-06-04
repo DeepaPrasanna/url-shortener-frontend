@@ -1,11 +1,11 @@
 "use client";
 
 import Link from "next/link";
-import { useState } from "react";
 import { GiHamburgerMenu } from "react-icons/gi";
-import ListItem from "./listItem";
+import { useState, useEffect, useRef } from "react";
 
-import { useEffect, useRef } from "react";
+import Button from "./button";
+import ListItem from "./listItem";
 
 const useOutsideClick = (callback: () => void) => {
   const ref = useRef<HTMLDivElement>(null);
@@ -27,12 +27,15 @@ const useOutsideClick = (callback: () => void) => {
   return ref;
 };
 
-
-const Dropdown = () => {
+const Dropdown = ({ user, logout }: any) => {
   const [isOpen, setIsOpen] = useState(false);
 
   const toggleDropdown = () => {
     setIsOpen(!isOpen);
+  };
+
+  const handleLogout = async () => {
+    await logout();
   };
 
   const dropdownRef = useOutsideClick(toggleDropdown);
@@ -56,18 +59,26 @@ const Dropdown = () => {
             <ListItem onClick={toggleDropdown}>
               <Link
                 href="/history"
-                className="hover:bg-accent hover:text-accent-foreground p-2 w-full rounded-md"
+                className="hover:bg-accent hover:text-accent-foreground p-2 w-full rounded-md flex justify-center"
               >
                 History
               </Link>
             </ListItem>
             <ListItem onClick={toggleDropdown}>
-              <Link
-                href="/login"
-                className="hover:bg-accent hover:text-accent-foreground p-2  w-full rounded-md"
-              >
-                Login
-              </Link>
+              {user ? (
+                <Button
+                  text="Logout"
+                  onClick={handleLogout}
+                  classes="w-full hover:bg-accent hover:text-accent-foreground py-2"
+                />
+              ) : (
+                <Link
+                  href="/login"
+                  className="hover:bg-accent hover:text-accent-foreground p-2  w-full rounded-md flex justify-center"
+                >
+                  Login
+                </Link>
+              )}
             </ListItem>
           </ul>
         </div>
