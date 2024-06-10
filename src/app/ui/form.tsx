@@ -75,7 +75,7 @@ export function Form() {
   const [copied, setCopied] = useState(false);
 
   const handleCopyToClipboard = () => {
-    const shortUrl = `teenyurl.in/${formState.result.split("/")[1]}`;
+    const shortUrl = `teenyurl.in/${formState.result.split("/").pop()}`;
     navigator.clipboard.writeText(shortUrl).then(() => {
       setCopied(true);
       setTimeout(() => setCopied(false), 2000);
@@ -86,16 +86,14 @@ export function Form() {
     <Card classes="md:w-5/6 mx-auto 2xl:my-auto ">
       <form
         action={action}
-        className={`space-y-4 m-6  ${
-          formState.message === "success" ? "hidden" : "block"
-        }`}
+        className={`space-y-4 m-6  ${formState.message === "success" ? "hidden" : "block"
+          }`}
       >
         <FormChild formState={formState} />
       </form>
       <div
-        className={`m-4 space-y-2 ${
-          formState.message === "success" ? "flex flex-col gap-2" : "hidden"
-        }`}
+        className={`m-4 space-y-2 ${formState.message === "success" ? "flex flex-col gap-2" : "hidden"
+          }`}
       >
         <div>
           <p className="text-sm lg:text-lg font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70 py-1">
@@ -118,7 +116,7 @@ export function Form() {
               readOnly
               value={
                 formState.message === "success"
-                  ? `teenyurl.in/${formState.result.split("/")[1]}`
+                  ? `teenyurl.in/${formState.result.split("/").pop()}`
                   : ""
               }
               className="bg-secondary text-muted-foreground flex h-9 rounded-md border border-input px-3 py-1 text-sm shadow-sm transition-colors file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50 w-full"
@@ -135,7 +133,7 @@ export function Form() {
         {formState?.message === "success" && (
           <div className="flex justify-center items-center">
             <QRCodeSVG
-              value={`teenyurl.in/${formState.result.split("/")[1]}`}
+              value={`teenyurl.in/${formState.result.split("/").pop()}`}
               includeMargin
               width="30%"
               height="30%"
@@ -146,7 +144,7 @@ export function Form() {
           <Button
             classes="border border-input h-10 rounded-md px-4 lg:px-8"
             onClick={() => {
-              window.open(`${formState.result.split("/")[1]}`, "_blank");
+              window.open(`${formState.result.split("/").pop()}`, "_blank");
             }}
             text="Visit"
             primary
